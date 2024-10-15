@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/presentation/auth/login_screen.dart';
 import 'package:myapp/presentation/auth/registration_screen.dart';
+import 'package:myapp/presentation/library_user/book_detail_screen.dart';
 import 'package:myapp/presentation/library_user/book_search_screen.dart';
 import 'package:myapp/presentation/library_user/library_user_screen.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/library': (context) => const LibraryUserScreen(),
         '/register': (context) => const RegistrationScreen(),
         '/search': (context) => const BookSearchScreen(),
+        '/detail': (context) => BookDetailScreen(book: null,)
       },
     );
   }

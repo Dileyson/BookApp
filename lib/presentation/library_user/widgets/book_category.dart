@@ -22,7 +22,8 @@ class BookCategory extends StatelessWidget {
         ),
         const Spacer(),
         if (categoryActionText != null)
-          FilledButton(onPressed: () {},
+          FilledButton(
+                onPressed: () => Navigator.pushNamed(context, '/detail'),
           style: const ButtonStyle(visualDensity: VisualDensity.compact), 
           child: Text(categoryActionText!),)
       ],

@@ -18,7 +18,7 @@ class BookItem extends StatelessWidget {
         children: [
           SizedBox(
             //width: 120,
-            height: 180,
+            height: 140,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
@@ -31,39 +31,32 @@ class BookItem extends StatelessWidget {
                         padding: EdgeInsets.all(10),
                         child: Center(
                           child: CircularProgressIndicator(),
-                        )
-                      );
+                        ));
                   }
                   return child;
                 },
               ),
             ),
           ),
-          const SizedBox(
-            height: 10
-            ),
-            SizedBox(
-              width: 120,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
+          const SizedBox(height: 10),
+          SizedBox(
+            width: 120,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(
                 title ?? '',
                 maxLines: 2,
                 style: theme.titleMedium,
-                ),
               ),
             ),
-            SizedBox(
-              width: 120,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  author ?? '',
-                  maxLines: 2,
-                  style: theme.titleMedium
-                  ),
-              ),
+          ),
+          SizedBox(
+            width: 120,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(author ?? '', maxLines: 2, style: theme.titleMedium),
             ),
+          ),
         ],
       ),
     );
