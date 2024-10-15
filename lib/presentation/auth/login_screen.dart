@@ -17,57 +17,100 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(
+        title: const Text('Login'),
+        backgroundColor: Colors.blue,
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _usernameController,
-                decoration: const InputDecoration(labelText: 'Username'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    final users = await UserDataSource().getUsers();
-                    final user = users.firstWhere(
-                        (user) => user.username == _usernameController.text,
-                        orElse: () => User(id: '', username: '', password: ''));
+        padding:
+            const EdgeInsets.symmetric(horizontal: 24.0), //Symmetric padding
+        child: Center(
+          //Center the form
+          child: SingleChildScrollView(
+            //for keyboard avoidance
+            padding: const EdgeInsets.all(20.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 20), //add some spacing
+                  TextFormField(
+                    controller: _usernameController,
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      filled: true,
+                      fillColor: Colors.grey[200], //Light grey fill
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none, //hide default border
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your username';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16), //add some spacing
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue, //Blue background
+                      foregroundColor: Colors.white, //White text
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 12),
+                      textStyle: const TextStyle(fontSize: 16),
+                    ),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        final users = await UserDataSource().getUsers();
+                        final user = users.firstWhere(
+                          (user) => user.username == _usernameController.text,
+                          orElse: () =>
+                              User(id: '', username: '', password: ''),
+                        );
 
-                    if (user.checkPassword(_passwordController.text)) {
-                      Navigator.pushReplacementNamed(context, '/library');
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Invalid credentials')),
-                      );
-                    }
-                  }
-                },
-                child: const Text('Login'),
+                        if (user.checkPassword(_passwordController.text)) {
+                          Navigator.pushReplacementNamed(context, '/library');
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Invalid credentials')),
+                          );
+                        }
+                      }
+                    },
+                    child: const Text('Login'),
+                  ),
+                  const SizedBox(height: 16),
+                  TextButton(
+                    onPressed: () => Navigator.pushNamed(context, '/register'),
+                    child: const Text('Register'),
+                  ),
+                ],
               ),
-              TextButton(
-                  onPressed: () => Navigator.pushNamed(context, '/register'),
-                  child: const Text('Register'))
-            ],
+            ),
           ),
         ),
       ),
