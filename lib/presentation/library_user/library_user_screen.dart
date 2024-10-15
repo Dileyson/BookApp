@@ -5,36 +5,43 @@ import 'package:myapp/presentation/library_user/widgets/horizontal_book_list.dar
 
 class LibraryUserScreen extends StatelessWidget {
   const LibraryUserScreen({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     final bookList = getBooks();
 
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const CustomAppbar(),
-              HorizontalBookList(
-                categoryTitle: 'En progreso',
-                categoryActionText: 'Ver todos',
-                bookList: bookList,
-              ),
-              HorizontalBookList(
-                categoryTitle: 'Leídos',
-                categoryActionText: 'Ver todos',
-                bookList: bookList.reversed.toList(),
-              ),
-              HorizontalBookList(
-                categoryTitle: 'Pendientes',
-                categoryActionText: 'Ver todos',
-                bookList: bookList,
-              ),
-            ],
-          ),
+        appBar: AppBar(
+          title: const Text("Biblioteca"),
+          actions: [
+            IconButton(
+                onPressed: () => Navigator.pushNamed(context, '/search'),
+                icon: const Icon(Icons.search))
+          ],
         ),
-      )
-    );
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const CustomAppbar(),
+                HorizontalBookList(
+                  categoryTitle: 'En progreso',
+                  categoryActionText: 'Ver todos',
+                  bookList: bookList,
+                ),
+                HorizontalBookList(
+                  categoryTitle: 'Leídos',
+                  categoryActionText: 'Ver todos',
+                  bookList: bookList.reversed.toList(),
+                ),
+                HorizontalBookList(
+                  categoryTitle: 'Pendientes',
+                  categoryActionText: 'Ver todos',
+                  bookList: bookList,
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

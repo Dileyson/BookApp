@@ -34,3 +34,12 @@ List<Book> getBooks() {
     ),
   ];
 }
+
+List<Book> searchBooks(String query) {
+    query = query.toLowerCase();
+    var books;
+    return books.where((book) =>
+        book.name.toLowerCase().contains(query) ||
+        book.author.toLowerCase().contains(query) ||
+        book.id.toLowerCase().contains(query)).toList();
+  }
